@@ -36,7 +36,7 @@ Wil je contact opnemen of samenwerken? Dat kan via:
 - **LinkedIn**: [LinkedIn profiel](https://www.linkedin.com/in/lucas-askamp-87031a2b7/)  
 - **Instagram**: [@lucasaskamp](https://www.instagram.com/lucasaskamp/)  
 
-## 📂 Projectstructuur  
+## 📂 Projectstructuur
 
 ```plaintext
 portofolio/
