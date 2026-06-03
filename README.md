@@ -1,9 +1,10 @@
 # Portfolio Website  
 
-Dit is mijn persoonlijke **portfolio website** waarin ik mijn projecten, vaardigheden en contactgegevens presenteer. De site is ontworpen met oog voor eenvoud, responsiviteit en een moderne uitstraling.  
+Dit is mijn persoonlijke **portfolio website** waarin ik mijn projecten, vaardigheden en contactgegevens presenteer. De site is ontworpen met oog voor eenvoud, responsiviteit en een moderne uitstraling.
 
 ## 🌐 Live Demo  
 👉 [Bezoek mijn portfolio](https://100536.stu.sd-lab.nl/)  
+*(opmerking: momenteel in ontwikkeling)*
 
 ## 📸 Screenshots  
 ![Homepagina](./img/project1.jpg)  
@@ -17,7 +18,7 @@ Dit is mijn persoonlijke **portfolio website** waarin ik mijn projecten, vaardig
 - **Contactpagina**:  
   - Contactformulier met velden voor naam, e-mail, onderwerp en bericht  
   - Contactinformatie (e-mail, GitHub, LinkedIn, Instagram)  
-- **Loginpagina** (optioneel: toekomstige uitbreiding)  
+- **Loginpagina** (toekomstige uitbreiding)  
 - **Dark/Light mode switch**  
 - **Responsief design**: werkt zowel op desktop als mobiel  
 
@@ -39,14 +40,11 @@ Wil je contact opnemen of samenwerken? Dat kan via:
 ## 📂 Projectstructuur
 
 ```plaintext
-portofolio/
+portfolio/
 │
-├── css/               # Stylesheets (menu.css, foother.css, styles.css, contact.css, etc.)
-├── html/              # Pagina’s (about.html, project.html, contact.html, login.html)
+├── css/               # Stylesheets (menu.css, footer.css, styles.css, contact.css, etc.)
+├── html/              # Pagina's (about.html, project.html, contact.html, login.html)
 ├── img/               # Afbeeldingen voor projecten en profiel
 ├── javascript/        # Script voor dark mode, navigatie, etc.
 ├── index.html         # Startpagina
 └── README.md          # Documentatie
-
-
-© 2024 Lucas Askamp – Alle rechten voorbehouden.
