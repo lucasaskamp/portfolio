@@ -60,7 +60,7 @@
           te laten groeien.
         </p>
         <div class="actions" style="margin-top:10px;">
-          <a class="btn btn-primary" href="Cv-Lucas_(Carel)_Askamp(2025).pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+          <a class="btn btn-primary" href="Cv-Lucas_Askamp(2026).pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
           <a class="btn" href="pages/contact.php">Plan een kennismaking</a>
         </div>
       </article>

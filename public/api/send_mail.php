@@ -76,17 +76,66 @@ try {
         ['name'=>$name,'email'=>$email,'subject'=>$subject]
     );
 
-    // (optioneel) mail naar jezelf; fouten negeren
+    // Site- en CV-links dynamisch opbouwen (werkt ongeacht waar de site draait)
+    $scheme  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host    = $_SERVER['HTTP_HOST'] ?? 'lucasaskamp.nl';
+    $baseUrl = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/'); // public-root, bv. "" of "/portfolio/public"
+    $siteUrl = $scheme . '://' . $host . $baseUrl . '/';
+    $cvUrl   = $siteUrl . rawurlencode('Cv-Lucas_Askamp(2026).pdf');
+
+    // CV-bijlage voorbereiden (ligt in public/, één map boven dit script)
+    $cvPath = __DIR__ . '/../Cv-Lucas_Askamp(2026).pdf';
+    $cvName = 'CV-Lucas-Askamp.pdf';
+
     if (function_exists('mail')) {
-        $to   = 'contact@lucasaskamp.nl';
-        $host = $_SERVER['HTTP_HOST'] ?? 'site';
-        $hdrs = "From: no-reply@{$host}\r\n".
-            "Reply-To: {$email}\r\n".
-            "Content-Type: text/plain; charset=UTF-8\r\n";
-        $body = "Nieuw bericht via het contactformulier:\n\n".
-            "Naam: {$name}\nE-mail: {$email}\nOnderwerp: {$subject}\n\n".
-            "Bericht:\n{$message}\n";
-        @mail($to, "[Portfolio] {$subject}", $body, $hdrs);
+        // 1) Notificatie naar mezelf: er wacht iemand op contact
+        $adminHdrs = "From: Portfolio <no-reply@{$host}>\r\n".
+            "Reply-To: {$name} <{$email}>\r\n".
+            "Content-Type: text/plain; charset=UTF-8\r\n".
+            "MIME-Version: 1.0\r\n";
+        $adminBody =
+            "Er wacht iemand op contact via je portfolio.\n\n".
+            "Naam: {$name}\n".
+            "E-mail: {$email}\n".
+            "Onderwerp: {$subject}\n\n".
+            "Bericht:\n{$message}\n\n".
+            "Neem zo snel mogelijk contact op via {$email}.\n";
+        @mail('contact@lucasaskamp.nl', 'Nieuwe contactaanvraag - iemand wacht op je reactie', $adminBody, $adminHdrs);
+
+        // 2) Bevestiging naar de afzender, met portfolio-link en CV als bijlage
+        $boundary  = '=_' . bin2hex(random_bytes(16));
+        $replyHdrs = "From: Lucas Askamp <contact@lucasaskamp.nl>\r\n".
+            "Reply-To: contact@lucasaskamp.nl\r\n".
+            "MIME-Version: 1.0\r\n".
+            "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n";
+
+        $replyText =
+            "Hoi {$name},\n\n".
+            "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.\n\n".
+            "Bekijk in de tussentijd gerust mijn werk:\n".
+            "- Portfolio: {$siteUrl}\n".
+            "- CV: zie de bijlage (of download: {$cvUrl})\n\n".
+            "Met vriendelijke groet,\n".
+            "Lucas Askamp\n".
+            "contact@lucasaskamp.nl\n";
+
+        // Tekstdeel
+        $replyBody  = "--{$boundary}\r\n";
+        $replyBody .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $replyBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+        $replyBody .= $replyText . "\r\n";
+
+        // CV-bijlage (alleen als het bestand er is)
+        if (is_file($cvPath) && ($pdf = @file_get_contents($cvPath)) !== false) {
+            $replyBody .= "--{$boundary}\r\n";
+            $replyBody .= "Content-Type: application/pdf; name=\"{$cvName}\"\r\n";
+            $replyBody .= "Content-Transfer-Encoding: base64\r\n";
+            $replyBody .= "Content-Disposition: attachment; filename=\"{$cvName}\"\r\n\r\n";
+            $replyBody .= chunk_split(base64_encode($pdf)) . "\r\n";
+        }
+        $replyBody .= "--{$boundary}--\r\n";
+
+        @mail($email, 'Bedankt voor je bericht - Lucas Askamp', $replyBody, $replyHdrs);
     }
 
     redirect($backOk);
