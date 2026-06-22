@@ -1,0 +1,27 @@
+# ============================================================
+#  Vangnet voor als de document root NIET op public/ staat.
+#  Staat de document root al op public/? Dan wordt dit bestand
+#  niet gelezen (het ligt erboven) — helemaal prima.
+# ============================================================
+
+# 1) .env en andere dotfiles afschermen
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 2) Niet-publieke mappen blokkeren
+    RewriteRule ^(src|tools|database)(/|$) - [F,L]
+
+    # 3) Al het overige verkeer naar de public/ map routeren
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

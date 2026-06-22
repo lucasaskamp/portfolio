@@ -12,15 +12,22 @@ try {
     if ($id <= 0) { http_response_code(400); exit('bad id'); }
 
     $pdo->beginTransaction();
-    $del = $pdo->prepare("DELETE FROM contact_messages WHERE id=:id");
-    $del->execute([':id'=>$id]);
 
-    log_event($pdo, $_SESSION['user_id']??null, $_SESSION['username']??null, 'delete', 'contact', $id, []);
+    // Titel ophalen voor het logboek
+    $sel = $pdo->prepare("SELECT title FROM projects WHERE id=:id LIMIT 1");
+    $sel->execute([':id' => $id]);
+    $title = (string)($sel->fetchColumn() ?: ('#' . $id));
+
+    // Eerst de gekoppelde afbeelding (werkt ook zonder FK-cascade), dan het project
+    $pdo->prepare("DELETE FROM project_images WHERE project_id=:id")->execute([':id' => $id]);
+    $pdo->prepare("DELETE FROM projects WHERE id=:id")->execute([':id' => $id]);
+
+    log_event($pdo, $_SESSION['user_id'] ?? null, $_SESSION['username'] ?? null, 'delete', 'project', $id, ['title' => $title]);
 
     $pdo->commit();
-    header('Location: ./contacts.php?deleted=1');
+    header('Location: ./admin.php?deleted=1');
 } catch (Throwable $e) {
     if ($pdo->inTransaction()) $pdo->rollBack();
-    error_log('contact-delete failed: '.$e->getMessage());
-    header('Location: ./contacts.php?err=delete');
+    error_log('project-delete failed: ' . $e->getMessage());
+    header('Location: ./admin.php?err=delete');
 }
