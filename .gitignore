@@ -1,18 +1,30 @@
-# IDE/OS
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-
-# Geheimen
-/includes/config.local.php
+# ── Geheimen / environment ──
 .env
 .env.*
+!.env.example
 
-# Uploads (niet in Git)
-uploads/*
-!uploads/.gitkeep
-uploads/projects/*
-!uploads/projects/.gitkeep
+# ── Dependencies ──
+/vendor/
+node_modules/
 
-# (verwijder de storage-secties als je die mappen niet hebt)
+# ── Logs / caches ──
+*.log
+.php-cs-fixer.cache
+.phpunit.result.cache
+
+# ── Uploads (gebruikersbestanden, niet in Git) ──
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/.htaccess
+!public/uploads/projects/
+public/uploads/projects/*
+!public/uploads/projects/.gitkeep
+
+# ── IDE / editor ──
+.idea/
+.vscode/
+*.iml
+
+# ── OS ──
+.DS_Store
+Thumbs.db
