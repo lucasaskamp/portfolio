@@ -93,7 +93,7 @@ portfolio/
 
 Wil je contact opnemen of samenwerken? Dat kan via:  
 
-- **E-mail**: [lucas.werk@gmail.com](mailto:lucas.werk@gmail.com)  
+- **E-mail**: [contact@lucasaskamp.nl](mailto:contact@lucasaskamp.nl)  
 - **GitHub**: [github.com/100536](https://github.com/100536)  
 - **LinkedIn**: [LinkedIn profiel](https://www.linkedin.com/in/lucas-askamp-87031a2b7/)  
 - **Instagram**: [@lucasaskamp](https://www.instagram.com/lucasaskamp/)  

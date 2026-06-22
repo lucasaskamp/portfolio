@@ -78,7 +78,7 @@ try {
 
     // (optioneel) mail naar jezelf; fouten negeren
     if (function_exists('mail')) {
-        $to   = 'lucas.werk@gmail.com';
+        $to   = 'contact@lucasaskamp.nl';
         $host = $_SERVER['HTTP_HOST'] ?? 'site';
         $hdrs = "From: no-reply@{$host}\r\n".
             "Reply-To: {$email}\r\n".

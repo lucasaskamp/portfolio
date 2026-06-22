@@ -63,7 +63,7 @@
   focus<span class="p">:</span> <span class="s">'snelle, toegankelijke, onderhoudbare sites'</span><span class="p">,</span>
   values<span class="p">:</span> <span class="p">[</span><span class="s">'simpel'</span><span class="p">,</span> <span class="s">'duidelijk'</span><span class="p">,</span> <span class="s">'netjes'</span><span class="p">,</span> <span class="s">'snel'</span><span class="p">]</span><span class="p">,</span>
   contact<span class="p">:</span> <span class="p">{</span>
-    email<span class="p">:</span> <span class="s">'lucas.werk@gmail.com'</span><span class="p">,</span>
+    email<span class="p">:</span> <span class="s">'contact@lucasaskamp.nl'</span><span class="p">,</span>
     github<span class="p">:</span> <span class="s">'github.com/100536'</span><span class="p">,</span>
     linkedin<span class="p">:</span> <span class="s">'linkedin.com/in/lucas-askamp-87031a2b7'</span>
   <span class="p">}</span><span class="p">,</span>
@@ -199,6 +199,7 @@ nothing to commit, working tree clean"></div>
             <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
             <li><a href="contact.php">Contact</a></li>
+            <li><a href="privacy.php">Privacy</a></li>
         </ul>
     </div>
 </footer>

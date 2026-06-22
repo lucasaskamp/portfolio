@@ -168,6 +168,7 @@
         <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="pages/contact.php">Contact</a></li>
+        <li><a href="pages/privacy.php">Privacy</a></li>
       </ul>
     </div>
   </footer>

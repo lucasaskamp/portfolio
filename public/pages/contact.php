@@ -135,6 +135,11 @@ function field_error(string $name, string $errFld, string $errKey): ?string {
                         <?php endif; ?>
                     </div>
 
+                    <p class="hint">
+                        Door dit formulier te versturen ga je akkoord met de verwerking van je
+                        gegevens zoals beschreven in de <a href="privacy.php">privacyverklaring</a>.
+                    </p>
+
                     <div class="actions">
                         <button type="submit" class="btn btn-primary">Verstuur</button>
                         <button type="reset" class="btn">Leegmaken</button>
@@ -152,7 +157,7 @@ function field_error(string $name, string $errFld, string $errKey): ?string {
                 <ul class="inline-list">
                     <li>
                         <div class="kicker">E-mail</div>
-                        <a href="mailto:lucasa.werk@gmail.com">lucasa.werk@gmail.com</a>
+                        <a href="mailto:contact@lucasaskamp.nl">contact@lucasaskamp.nl</a>
                     </li>
                     <li>
                         <div class="kicker">LinkedIn</div>
@@ -198,6 +203,7 @@ function field_error(string $name, string $errFld, string $errKey): ?string {
             <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
             <li><a href="contact.php">Contact</a></li>
+            <li><a href="privacy.php">Privacy</a></li>
         </ul>
     </div>
 </footer>
