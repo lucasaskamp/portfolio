@@ -88,6 +88,20 @@ a:focus-visible, button:focus-visible { outline: none; box-shadow: 0 0 0 3px var
     transition: left .25s ease, width .25s ease, transform .25s ease;
 }
 
+/* Taalschakelaar (NL / EN) — zit in de rechter kolom van .header-inner */
+.lang-switch { display: flex; gap: 4px; align-items: center; justify-self: end; }
+.lang-switch a {
+    padding: 6px 8px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; line-height: 1;
+    color: var(--muted); text-decoration: none;
+    border: 1px solid transparent;
+    transition: background .2s, color .2s, border-color .2s;
+}
+.lang-switch a:hover { background: rgba(37,99,235,.1); border-color: var(--border); }
+.lang-switch a.is-active {
+    color: #dce8ff; background: rgba(37,99,235,.15); border-color: var(--border);
+}
+
 /* mobiel */
 @media (max-width: 860px) {
     .header-inner { grid-template-columns: auto auto auto; }

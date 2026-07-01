@@ -29,6 +29,7 @@ try {
     $email   = trim((string)($_POST['email'] ?? ''));
     $subject = trim((string)($_POST['subject'] ?? ''));
     $message = trim((string)($_POST['message'] ?? ''));
+    $lang    = (($_POST['lang'] ?? '') === 'nl') ? 'nl' : 'en'; // taal van de bezoeker (fallback en)
 
     // Validatie volgens jouw kolomnamen/lengtes
     if ($name === '' || mb_strlen($name) > 120)        redirect($backBad);
@@ -109,15 +110,13 @@ try {
             "MIME-Version: 1.0\r\n".
             "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n";
 
-        $replyText =
-            "Hoi {$name},\n\n".
-            "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.\n\n".
-            "Bekijk in de tussentijd gerust mijn werk:\n".
-            "- Portfolio: {$siteUrl}\n".
-            "- CV: zie de bijlage (of download: {$cvUrl})\n\n".
-            "Met vriendelijke groet,\n".
-            "Lucas Askamp\n".
-            "contact@lucasaskamp.nl\n";
+        // Bevestiging in de taal die de bezoeker op de site koos (nl/en).
+        $replySubject = t_lang($lang, 'email.reply.subject');
+        $replyText    = t_lang($lang, 'email.reply.body', [
+            'name'    => $name,
+            'siteUrl' => $siteUrl,
+            'cvUrl'   => $cvUrl,
+        ]);
 
         // Tekstdeel
         $replyBody  = "--{$boundary}\r\n";
@@ -135,7 +134,7 @@ try {
         }
         $replyBody .= "--{$boundary}--\r\n";
 
-        @mail($email, 'Bedankt voor je bericht - Lucas Askamp', $replyBody, $replyHdrs);
+        @mail($email, $replySubject, $replyBody, $replyHdrs);
     }
 
     redirect($backOk);

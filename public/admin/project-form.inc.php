@@ -1,14 +1,15 @@
 <?php
 if (!isset($mode)) { $mode = 'new'; }
 $defaults = [
-    'title'=>'', 'excerpt'=>'', 'tech'=>'', 'live_url'=>'', 'status'=>'concept', 'hero_image'=>''
+    'title'=>'', 'title_en'=>'', 'excerpt'=>'', 'excerpt_en'=>'',
+    'tech'=>'', 'live_url'=>'', 'status'=>'concept', 'hero_image'=>''
 ];
 $data = array_merge($defaults, $data ?? []);
 ?>
 <div class="card" style="background:#0f1a2a;border-radius:16px;padding:20px;max-width:900px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div>
-            <label>Titel</label>
+            <label>Titel (NL)</label>
             <input required name="title" value="<?= e($data['title']) ?>" class="input">
         </div>
         <div>
@@ -19,8 +20,16 @@ $data = array_merge($defaults, $data ?? []);
             </select>
         </div>
         <div style="grid-column:1/-1">
-            <label>Korte omschrijving</label>
+            <label>Titel (EN) — leeg = val terug op NL</label>
+            <input name="title_en" value="<?= e($data['title_en']) ?>" class="input">
+        </div>
+        <div style="grid-column:1/-1">
+            <label>Korte omschrijving (NL)</label>
             <textarea name="excerpt" rows="3" class="input"><?= e($data['excerpt']) ?></textarea>
+        </div>
+        <div style="grid-column:1/-1">
+            <label>Korte omschrijving (EN) — leeg = val terug op NL</label>
+            <textarea name="excerpt_en" rows="3" class="input"><?= e($data['excerpt_en']) ?></textarea>
         </div>
         <div>
             <label>Tech (komma-gescheiden)</label>

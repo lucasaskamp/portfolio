@@ -4,12 +4,14 @@ require_once __DIR__ . '/../../src/guard.php';
 require_once __DIR__ . '/../../src/bootstrap.php';
 require_once __DIR__ . '/../../src/activity.php';
 
-$id      = (int)($_POST['id'] ?? 0);
-$title   = trim($_POST['title'] ?? '');
-$excerpt = trim($_POST['excerpt'] ?? '');
-$tech    = trim($_POST['tech'] ?? '');
-$live    = trim($_POST['live_url'] ?? '');
-$status  = ($_POST['status'] ?? 'concept') === 'live' ? 'live' : 'concept';
+$id       = (int)($_POST['id'] ?? 0);
+$title    = trim($_POST['title'] ?? '');
+$titleEn  = trim($_POST['title_en'] ?? '');
+$excerpt  = trim($_POST['excerpt'] ?? '');
+$excerptEn= trim($_POST['excerpt_en'] ?? '');
+$tech     = trim($_POST['tech'] ?? '');
+$live     = trim($_POST['live_url'] ?? '');
+$status   = ($_POST['status'] ?? 'concept') === 'live' ? 'live' : 'concept';
 
 if (!$id || $title==='') exit('Ongeldige invoer.');
 
@@ -18,10 +20,12 @@ $slug = slugify($title);
 // 1) Velden updaten
 $pdo->prepare("
   UPDATE projects
-  SET title=:title, slug=:slug, excerpt=:excerpt, tech=:tech, live_url=:live, status=:status
+  SET title=:title, title_en=:title_en, slug=:slug, excerpt=:excerpt, excerpt_en=:excerpt_en,
+      tech=:tech, live_url=:live, status=:status
   WHERE id=:id
 ")->execute([
-    ':title'=>$title, ':slug'=>$slug, ':excerpt'=>$excerpt,
+    ':title'=>$title, ':title_en'=>($titleEn !== '' ? $titleEn : null),
+    ':slug'=>$slug, ':excerpt'=>$excerpt, ':excerpt_en'=>($excerptEn !== '' ? $excerptEn : null),
     ':tech'=>$tech, ':live'=>$live, ':status'=>$status, ':id'=>$id
 ]);
 

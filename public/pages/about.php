@@ -1,9 +1,13 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../../src/i18n.php';
+?>
 <!doctype html>
-<html lang="nl" data-theme="dark">
+<html lang="<?= e(lang_current()) ?>" data-theme="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Over mij — Lucas Askamp</title>
+    <title><?= t('meta.title.about') ?></title>
     <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
 <body>
@@ -11,21 +15,26 @@
 <!-- Header / Navigatie -->
 <header class="site-header">
     <div class="container header-inner">
-        <a href="../index.php" class="brand" aria-label="Ga naar home">
+        <a href="../index.php" class="brand" aria-label="<?= e(t('brand.aria')) ?>">
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor" d="M12 2l7 4v12l-7 4-7-4V6l7-4z"/>
             </svg>
             <span>Lucas Askamp</span>
         </a>
 
-        <nav class="nav" aria-label="Hoofd">
-            <a href="../index.php" class="nav__link">Home</a>
-            <a href="#" class="nav__link is-active">Over mij</a>
-            <a href="project.php" class="nav__link">Projecten</a>
-            <a href="contact.php" class="nav__link">Contact</a>
-            <a href="login.php" class="nav__link">Login</a>
+        <nav class="nav" aria-label="<?= e(t('nav.aria')) ?>">
+            <a href="../index.php" class="nav__link"><?= t('nav.home') ?></a>
+            <a href="#" class="nav__link is-active"><?= t('nav.about') ?></a>
+            <a href="project.php" class="nav__link"><?= t('nav.projects') ?></a>
+            <a href="contact.php" class="nav__link"><?= t('nav.contact') ?></a>
+            <a href="login.php" class="nav__link"><?= t('nav.login') ?></a>
             <span class="nav__indicator" aria-hidden="true"></span>
         </nav>
+
+        <div class="lang-switch" role="group" aria-label="<?= e(t('lang.switch_aria')) ?>">
+            <a href="<?= e(lang_switch_url('nl')) ?>" hreflang="nl" class="<?= lang_current() === 'nl' ? 'is-active' : '' ?>">NL</a>
+            <a href="<?= e(lang_switch_url('en')) ?>" hreflang="en" class="<?= lang_current() === 'en' ? 'is-active' : '' ?>">EN</a>
+        </div>
     </div>
 </header>
 
@@ -33,9 +42,9 @@
 <section class="hero hero--sub">
     <div class="container hero-inner">
         <div class="hero-copy">
-            <h1 class="reveal">Over mij</h1>
+            <h1 class="reveal"><?= t('about.hero.title') ?></h1>
             <p class="reveal" data-reveal-delay="80">
-                Ik maak webprojecten die snel laden, netjes zijn opgebouwd en makkelijk uit te breiden.
+                <?= t('about.hero.tagline') ?>
             </p>
         </div>
     </div>
@@ -105,35 +114,33 @@
 
         <!-- Rij 2: tekst + skills + info -->
         <article class="card reveal">
-            <h3>Wie ben ik</h3>
+            <h3><?= t('about.who.title') ?></h3>
             <p>
-                Ik ben <strong>Lucas</strong> (19), student <em>Software Development</em> aan het Grafisch Lyceum Rotterdam.
-                Ik hou van duidelijke interfaces, schone code en kleine details die het afmaken.
+                <?= t('about.who.p1') ?>
             </p>
             <p>
-                Ik werk vooral met <strong>HTML/CSS/JS</strong> en <strong>PHP</strong>, en ik leer
-                <strong>C#</strong>, <strong>Unity</strong> en <strong>Node.js</strong> erbij.
+                <?= t('about.who.p2') ?>
             </p>
 
-            <ul class="chip-list" aria-label="Technologieën">
+            <ul class="chip-list" aria-label="<?= e(t('about.tech.aria')) ?>">
                 <li class="chip">HTML</li>
                 <li class="chip">CSS</li>
                 <li class="chip">JavaScript</li>
                 <li class="chip">PHP</li>
                 <li class="chip">Node.js</li>
-                <li class="chip">C# (basis)</li>
-                <li class="chip">Unity (basis)</li>
+                <li class="chip"><?= t('about.csharp_basic') ?></li>
+                <li class="chip"><?= t('about.unity_basic') ?></li>
             </ul>
 
             <div class="about-actions">
-                <a class="btn btn-primary" href="project.php">Bekijk mijn projecten</a>
-                <a class="btn" href="contact.php">Stuur een bericht</a>
+                <a class="btn btn-primary" href="project.php"><?= t('about.actions.view_projects') ?></a>
+                <a class="btn" href="contact.php"><?= t('about.actions.send_message') ?></a>
             </div>
 
             <dl class="info-list">
-                <div><dt>Opleiding</dt><dd>GLR — Software Development</dd></div>
-                <div><dt>Locatie</dt><dd>Rozenburg, Rotterdam</dd></div>
-                <div><dt>Beschikbaar</dt><dd>Stage en freelance</dd></div>
+                <div><dt><?= t('about.info.education.label') ?></dt><dd><?= t('about.info.education.value') ?></dd></div>
+                <div><dt><?= t('about.info.location.label') ?></dt><dd><?= t('about.info.location.value') ?></dd></div>
+                <div><dt><?= t('about.info.available.label') ?></dt><dd><?= t('about.info.available.value') ?></dd></div>
             </dl>
         </article>
 
@@ -159,26 +166,26 @@ nothing to commit, working tree clean"></div>
 
             <!-- Toolbox blijft hetzelfde -->
             <article class="card toolbox-card reveal" data-reveal-delay="80">
-                <h3>Toolbox</h3>
-                <div class="tool-grid" aria-label="Tools">
-                    <div class="tool"><strong>HTML</strong><small>Semantisch, toegankelijk</small></div>
-                    <div class="tool"><strong>CSS</strong><small>Layout, animaties</small></div>
-                    <div class="tool"><strong>JavaScript</strong><small>DOM, fetch, modules</small></div>
-                    <div class="tool"><strong>PHP</strong><small>PDO, routing, security</small></div>
-                    <div class="tool"><strong>MySQL</strong><small>schema’s, queries</small></div>
-                    <div class="tool"><strong>Git</strong><small>branching, PR’s</small></div>
+                <h3><?= t('about.toolbox.title') ?></h3>
+                <div class="tool-grid" aria-label="<?= e(t('about.toolbox.aria')) ?>">
+                    <div class="tool"><strong>HTML</strong><small><?= t('about.tool.html') ?></small></div>
+                    <div class="tool"><strong>CSS</strong><small><?= t('about.tool.css') ?></small></div>
+                    <div class="tool"><strong>JavaScript</strong><small><?= t('about.tool.js') ?></small></div>
+                    <div class="tool"><strong>PHP</strong><small><?= t('about.tool.php') ?></small></div>
+                    <div class="tool"><strong>MySQL</strong><small><?= t('about.tool.mysql') ?></small></div>
+                    <div class="tool"><strong>Git</strong><small><?= t('about.tool.git') ?></small></div>
                 </div>
             </article>
         </div>
 
         <!-- Rij 4: tijdlijn -->
         <article class="card reveal">
-            <h3>Route</h3>
+            <h3><?= t('about.route.title') ?></h3>
             <ul class="timeline">
-                <li><time>2025 — nu</time>Stage zoeken</li>
-                <li><time>2024</time>Meer leren en mijn code skills verbeteren</li>
-                <li><time>2023</time>Start opleiding Software Development (GLR)</li>
-                <li><time>—</time>Leren coderen en test</li>
+                <li><time><?= t('about.route.y_now') ?></time><?= t('about.route.now') ?></li>
+                <li><time><?= t('about.route.y_2024') ?></time><?= t('about.route.2024') ?></li>
+                <li><time><?= t('about.route.y_2023') ?></time><?= t('about.route.2023') ?></li>
+                <li><time><?= t('about.route.y_dash') ?></time><?= t('about.route.dash') ?></li>
             </ul>
         </article>
     </div>
@@ -191,15 +198,15 @@ nothing to commit, working tree clean"></div>
             <span class="avatar">LA</span>
             <div>
                 <strong>Lucas Askamp</strong>
-                <div class="muted">© <span id="year"></span> Alle rechten voorbehouden</div>
+                <div class="muted">© <span id="year"></span> <?= t('footer.rights') ?></div>
             </div>
         </div>
 
         <ul class="footer-menu">
             <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="contact.php">Contact</a></li>
-            <li><a href="privacy.php">Privacy</a></li>
+            <li><a href="contact.php"><?= t('nav.contact') ?></a></li>
+            <li><a href="privacy.php"><?= t('footer.privacy') ?></a></li>
         </ul>
     </div>
 </footer>

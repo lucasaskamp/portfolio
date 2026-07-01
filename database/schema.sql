@@ -23,8 +23,10 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS projects (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
   title      VARCHAR(150) NOT NULL,
+  title_en   VARCHAR(150) NULL,                  -- Engelse titel (handmatig; leeg = val terug op NL)
   slug       VARCHAR(180) NOT NULL,
   excerpt    TEXT         NULL,
+  excerpt_en TEXT         NULL,                  -- Engelse omschrijving (handmatig; leeg = val terug op NL)
   tech       VARCHAR(255) NULL,                  -- komma-gescheiden, bv. "HTML,CSS,JS"
   live_url   VARCHAR(255) NULL,
   status     ENUM('concept','live') NOT NULL DEFAULT 'concept',

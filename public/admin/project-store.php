@@ -4,11 +4,13 @@ require_once __DIR__ . '/../../src/guard.php';
 require_once __DIR__ . '/../../src/bootstrap.php';
 require_once __DIR__ . '/../../src/activity.php';
 
-$title   = trim($_POST['title'] ?? '');
-$excerpt = trim($_POST['excerpt'] ?? '');
-$tech    = trim($_POST['tech'] ?? '');
-$live    = trim($_POST['live_url'] ?? '');
-$status  = ($_POST['status'] ?? 'concept') === 'live' ? 'live' : 'concept';
+$title    = trim($_POST['title'] ?? '');
+$titleEn  = trim($_POST['title_en'] ?? '');
+$excerpt  = trim($_POST['excerpt'] ?? '');
+$excerptEn= trim($_POST['excerpt_en'] ?? '');
+$tech     = trim($_POST['tech'] ?? '');
+$live     = trim($_POST['live_url'] ?? '');
+$status   = ($_POST['status'] ?? 'concept') === 'live' ? 'live' : 'concept';
 
 if ($title === '') { exit('Titel is verplicht.'); }
 
@@ -16,11 +18,12 @@ $slug = slugify($title);
 
 // 1) Maak project-record
 $ins = $pdo->prepare("
-  INSERT INTO projects (title, slug, excerpt, tech, live_url, status, hero_image)
-  VALUES (:title, :slug, :excerpt, :tech, :live, :status, NULL)
+  INSERT INTO projects (title, title_en, slug, excerpt, excerpt_en, tech, live_url, status, hero_image)
+  VALUES (:title, :title_en, :slug, :excerpt, :excerpt_en, :tech, :live, :status, NULL)
 ");
 $ins->execute([
-    ':title'=>$title, ':slug'=>$slug, ':excerpt'=>$excerpt,
+    ':title'=>$title, ':title_en'=>($titleEn !== '' ? $titleEn : null),
+    ':slug'=>$slug, ':excerpt'=>$excerpt, ':excerpt_en'=>($excerptEn !== '' ? $excerptEn : null),
     ':tech'=>$tech, ':live'=>$live, ':status'=>$status
 ]);
 
