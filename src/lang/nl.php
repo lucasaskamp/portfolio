@@ -27,16 +27,16 @@ return [
     // ── Home (index.php) ───────────────────────────────────
     'meta.title.home'          => 'Portfolio — Lucas Askamp',
     'home.hero.title'          => 'Portfolio van Lucas Askamp',
-    'home.hero.tagline'        => 'Webdeveloper. Focus op websites met strakke code en een duidelijke UX.',
+    'home.hero.tagline'        => 'Junior Full-Stack Developer. Ik bouw complete webapplicaties met strakke code — van de voorkant tot de database.',
     'home.hero.view_projects'  => 'Bekijk projecten',
     'home.hero.contact'        => 'Neem contact op',
 
     'home.intro.who.title'     => 'Wie ik ben',
-    'home.intro.who.body'      => 'Tweedejaars student Software Development aan het Grafisch Lyceum Rotterdam (MBO-4). Ik ben al vroeg met tech en code bezig en zoek een stageplek om mijn skills verder te laten groeien.',
+    'home.intro.who.body'      => 'Ik ben Lucas, junior Full-Stack Developer uit Rotterdam. Ik heb mijn opleiding Software Development afgerond aan het Grafisch Lyceum Rotterdam en stage gelopen bij Business Monitor, waar ik aan echte webapplicaties werkte — van de voorkant tot de database. Nu zoek ik een baan waar ik verder kan groeien als developer.',
     'home.intro.download_cv'   => 'Download CV (PDF)',
     'home.intro.plan_meeting'  => 'Plan een kennismaking',
     'home.intro.what.title'    => 'Wat ik doe',
-    'home.intro.what.body'     => 'Ik bouw dynamische, responsieve websites met HTML, CSS, JavaScript en PHP. Daarnaast verdiep ik me in C# en game-development (Unity/Unreal).',
+    'home.intro.what.body'     => 'Ik bouw complete, responsieve webapplicaties met HTML, CSS, JavaScript, PHP, C#, Blazor en SQL Server — van de voorkant tot de database. Daarnaast experimenteer ik met game-development (Unity/Unreal).',
 
     'home.highlights.frontend.title'    => 'Frontend',
     'home.highlights.frontend.body'     => 'Schone mark-up, moderne CSS en duidelijke interacties.',
@@ -46,10 +46,12 @@ return [
     'home.highlights.manage.body'       => 'Admin hub in dezelfde stijl voor eenvoudig onderhoud.',
 
     'home.skills.langs.title'  => 'Codeertalen',
-    'home.skills.csharp_basic' => 'C# (basis)',
     'home.skills.database'     => 'Database',
     'home.skills.tools.title'  => 'Software & tools',
 
+    'home.exp.bm.title'   => 'Business Monitor — Full-Stack Developer (stage)',
+    'home.exp.bm.period'  => 'Feb 2026 – Jun 2026',
+    'home.exp.bm.body'    => 'Tijdens mijn stage bouwde ik een Template Editor en Button Editor waarmee gebruikers zelf templates aanpassen zonder CSS te schrijven. Ik werkte aan zowel de voorkant (HTML, CSS, JavaScript) als de achterkant (C#, Blazor, SQL Server).',
     'home.exp.mcd.title'  => 'McDonald’s — Host/Supervisor',
     'home.exp.mcd.period' => 'Feb 2024 – heden',
     'home.exp.mcd.body'   => 'Binnen acht maanden “Crew van de Maand”, daarna doorgegroeid naar supervisor. Verantwoordelijk voor de eetruimte en aansturing van het team.',
@@ -58,10 +60,11 @@ return [
     'home.exp.ah.body'    => 'Vakken vullen en winkelondersteuning in de avonduren, meerdere dagen per week.',
 
     'home.edu.title' => 'Opleiding',
-    'home.edu.body'  => '<strong>Grafisch Lyceum Rotterdam</strong> — ICT & Media, MBO-4 (3-jarig).',
+    'home.edu.body'  => '<strong>Grafisch Lyceum Rotterdam</strong> — Creative Software Development, MBO-4 (afgerond).',
     'home.langs.title' => 'Talen',
     'home.langs.dutch'   => 'Nederlands',
     'home.langs.english' => 'Engels',
+    'home.langs.german'  => 'Duits (basis, A1)',
 
     // ── Over mij (about.php) ───────────────────────────────
     'meta.title.about' => 'Over mij — Lucas Askamp',
@@ -69,20 +72,18 @@ return [
     'about.hero.tagline' => 'Ik maak webprojecten die snel laden, netjes zijn opgebouwd en makkelijk uit te breiden.',
 
     'about.who.title' => 'Wie ben ik',
-    'about.who.p1'    => 'Ik ben <strong>Lucas</strong> (19), student <em>Software Development</em> aan het Grafisch Lyceum Rotterdam. Ik hou van duidelijke interfaces, schone code en kleine details die het afmaken.',
-    'about.who.p2'    => 'Ik werk vooral met <strong>HTML/CSS/JS</strong> en <strong>PHP</strong>, en ik leer <strong>C#</strong>, <strong>Unity</strong> en <strong>Node.js</strong> erbij.',
+    'about.who.p1'    => 'Ik ben <strong>Lucas</strong> (19), junior <em>Full-Stack Developer</em>. Ik heb mijn opleiding Software Development afgerond aan het Grafisch Lyceum Rotterdam en stage gelopen bij <strong>Business Monitor</strong>. Ik hou van duidelijke interfaces, schone code en kleine details die het afmaken.',
+    'about.who.p2'    => 'Ik werk met <strong>HTML/CSS/JS</strong>, <strong>PHP</strong>, <strong>C#</strong>, <strong>Blazor</strong> en <strong>SQL Server</strong> — van de voorkant tot de database.',
     'about.tech.aria'    => 'Technologieën',
-    'about.csharp_basic' => 'C# (basis)',
-    'about.unity_basic'  => 'Unity (basis)',
     'about.actions.view_projects' => 'Bekijk mijn projecten',
     'about.actions.send_message'  => 'Stuur een bericht',
 
     'about.info.education.label' => 'Opleiding',
-    'about.info.education.value' => 'GLR — Software Development',
+    'about.info.education.value' => 'GLR — Software Development (afgerond)',
     'about.info.location.label'  => 'Locatie',
-    'about.info.location.value'  => 'Rozenburg, Rotterdam',
+    'about.info.location.value'  => 'Spijkenisse, Rozenburg',
     'about.info.available.label' => 'Beschikbaar',
-    'about.info.available.value' => 'Stage en freelance',
+    'about.info.available.value' => 'Op zoek naar een baan (fulltime)',
 
     'about.toolbox.title' => 'Toolbox',
     'about.toolbox.aria'  => 'Tools',
@@ -94,14 +95,14 @@ return [
     'about.tool.git'   => 'branching, PR’s',
 
     'about.route.title'   => 'Route',
-    'about.route.y_now'   => '2025 — nu',
-    'about.route.now'     => 'Stage zoeken',
-    'about.route.y_2024'  => '2024',
-    'about.route.2024'    => 'Meer leren en mijn code skills verbeteren',
+    'about.route.y_now'   => '2026 — nu',
+    'about.route.now'     => 'Afgestudeerd; op zoek naar een baan als developer',
+    'about.route.y_2024'  => '2026',
+    'about.route.2024'    => 'Stage als Full-Stack Developer bij Business Monitor',
     'about.route.y_2023'  => '2023',
     'about.route.2023'    => 'Start opleiding Software Development (GLR)',
     'about.route.y_dash'  => '—',
-    'about.route.dash'    => 'Leren coderen en test',
+    'about.route.dash'    => 'Leren coderen en eerste eigen projecten',
 
     // ── Projecten (project.php) ────────────────────────────
     'meta.title.projects' => 'Projecten — Lucas Askamp',

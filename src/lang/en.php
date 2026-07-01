@@ -27,16 +27,16 @@ return [
     // ── Home (index.php) ───────────────────────────────────
     'meta.title.home'          => 'Portfolio — Lucas Askamp',
     'home.hero.title'          => 'Portfolio of Lucas Askamp',
-    'home.hero.tagline'        => 'Web developer. Focused on websites with clean code and clear UX.',
+    'home.hero.tagline'        => 'Junior Full-Stack Developer. I build complete web applications with clean code — from the front end to the database.',
     'home.hero.view_projects'  => 'View projects',
     'home.hero.contact'        => 'Get in touch',
 
     'home.intro.who.title'     => 'Who I am',
-    'home.intro.who.body'      => 'Second-year Software Development student at Grafisch Lyceum Rotterdam (MBO-4). I got into tech and code early on and I am looking for an internship to grow my skills further.',
+    'home.intro.who.body'      => 'I am Lucas, a junior Full-Stack Developer from Rotterdam. I completed my Software Development studies at Grafisch Lyceum Rotterdam and did an internship at Business Monitor, where I worked on real web applications — from the front end to the database. Now I am looking for a job where I can keep growing as a developer.',
     'home.intro.download_cv'   => 'Download CV (PDF)',
     'home.intro.plan_meeting'  => 'Schedule an intro',
     'home.intro.what.title'    => 'What I do',
-    'home.intro.what.body'     => 'I build dynamic, responsive websites with HTML, CSS, JavaScript and PHP. On top of that I am diving into C# and game development (Unity/Unreal).',
+    'home.intro.what.body'     => 'I build complete, responsive web applications with HTML, CSS, JavaScript, PHP, C#, Blazor and SQL Server — from the front end to the database. On top of that I experiment with game development (Unity/Unreal).',
 
     'home.highlights.frontend.title'    => 'Frontend',
     'home.highlights.frontend.body'     => 'Clean mark-up, modern CSS and clear interactions.',
@@ -46,10 +46,12 @@ return [
     'home.highlights.manage.body'       => 'An admin hub in the same style for easy maintenance.',
 
     'home.skills.langs.title'  => 'Programming languages',
-    'home.skills.csharp_basic' => 'C# (basic)',
     'home.skills.database'     => 'Database',
     'home.skills.tools.title'  => 'Software & tools',
 
+    'home.exp.bm.title'   => 'Business Monitor — Full-Stack Developer (internship)',
+    'home.exp.bm.period'  => 'Feb 2026 – Jun 2026',
+    'home.exp.bm.body'    => 'During my internship I built a Template Editor and Button Editor that let users customise templates themselves without writing CSS. I worked on both the front end (HTML, CSS, JavaScript) and the back end (C#, Blazor, SQL Server).',
     'home.exp.mcd.title'  => 'McDonald’s — Host/Supervisor',
     'home.exp.mcd.period' => 'Feb 2024 – present',
     'home.exp.mcd.body'   => 'Named “Crew Member of the Month” within eight months, then promoted to supervisor. Responsible for the dining area and leading the team.',
@@ -58,10 +60,11 @@ return [
     'home.exp.ah.body'    => 'Stocking shelves and store support during evening hours, several days a week.',
 
     'home.edu.title' => 'Education',
-    'home.edu.body'  => '<strong>Grafisch Lyceum Rotterdam</strong> — ICT & Media, MBO-4 (3-year program).',
+    'home.edu.body'  => '<strong>Grafisch Lyceum Rotterdam</strong> — Creative Software Development, MBO-4 (completed).',
     'home.langs.title' => 'Languages',
     'home.langs.dutch'   => 'Dutch',
     'home.langs.english' => 'English',
+    'home.langs.german'  => 'German (basic, A1)',
 
     // ── About (about.php) ──────────────────────────────────
     'meta.title.about' => 'About — Lucas Askamp',
@@ -69,20 +72,18 @@ return [
     'about.hero.tagline' => 'I build web projects that load fast, are cleanly structured and easy to extend.',
 
     'about.who.title' => 'Who am I',
-    'about.who.p1'    => 'I am <strong>Lucas</strong> (19), a <em>Software Development</em> student at Grafisch Lyceum Rotterdam. I love clear interfaces, clean code and the small details that finish it off.',
-    'about.who.p2'    => 'I mostly work with <strong>HTML/CSS/JS</strong> and <strong>PHP</strong>, and I am picking up <strong>C#</strong>, <strong>Unity</strong> and <strong>Node.js</strong> too.',
+    'about.who.p1'    => 'I am <strong>Lucas</strong> (19), a junior <em>Full-Stack Developer</em>. I completed my Software Development studies at Grafisch Lyceum Rotterdam and did an internship at <strong>Business Monitor</strong>. I love clear interfaces, clean code and the small details that finish it off.',
+    'about.who.p2'    => 'I work with <strong>HTML/CSS/JS</strong>, <strong>PHP</strong>, <strong>C#</strong>, <strong>Blazor</strong> and <strong>SQL Server</strong> — from the front end to the database.',
     'about.tech.aria'    => 'Technologies',
-    'about.csharp_basic' => 'C# (basic)',
-    'about.unity_basic'  => 'Unity (basic)',
     'about.actions.view_projects' => 'View my projects',
     'about.actions.send_message'  => 'Send a message',
 
     'about.info.education.label' => 'Education',
-    'about.info.education.value' => 'GLR — Software Development',
+    'about.info.education.value' => 'GLR — Software Development (completed)',
     'about.info.location.label'  => 'Location',
-    'about.info.location.value'  => 'Rozenburg, Rotterdam',
+    'about.info.location.value'  => 'Spijkenisse, Rozenburg',
     'about.info.available.label' => 'Available',
-    'about.info.available.value' => 'Internship and freelance',
+    'about.info.available.value' => 'Looking for a (full-time) job',
 
     'about.toolbox.title' => 'Toolbox',
     'about.toolbox.aria'  => 'Tools',
@@ -94,14 +95,14 @@ return [
     'about.tool.git'   => 'branching, PRs',
 
     'about.route.title'   => 'Journey',
-    'about.route.y_now'   => '2025 — now',
-    'about.route.now'     => 'Looking for an internship',
-    'about.route.y_2024'  => '2024',
-    'about.route.2024'    => 'Learning more and improving my coding skills',
+    'about.route.y_now'   => '2026 — now',
+    'about.route.now'     => 'Graduated; looking for a job as a developer',
+    'about.route.y_2024'  => '2026',
+    'about.route.2024'    => 'Internship as a Full-Stack Developer at Business Monitor',
     'about.route.y_2023'  => '2023',
     'about.route.2023'    => 'Started Software Development studies (GLR)',
     'about.route.y_dash'  => '—',
-    'about.route.dash'    => 'Learning to code and testing',
+    'about.route.dash'    => 'Learning to code and first own projects',
 
     // ── Projects (project.php) ─────────────────────────────
     'meta.title.projects' => 'Projects — Lucas Askamp',

@@ -65,7 +65,7 @@ require_once __DIR__ . '/../../src/i18n.php';
                 <pre class="code"><span class="c">// Kort wie, wat, waar — in code</span>
 <span class="k">const</span> lucas <span class="p">=</span> <span class="p">{</span>
   name<span class="p">:</span> <span class="s">'Lucas Askamp'</span><span class="p">,</span>
-  role<span class="p">:</span> <span class="s">'Software Development student'</span><span class="p">,</span>
+  role<span class="p">:</span> <span class="s">'Junior Full-Stack Developer'</span><span class="p">,</span>
   location<span class="p">:</span> <span class="s">'Rozenburg (Rotterdam), NL'</span><span class="p">,</span>
   stack<span class="p">:</span> <span class="p">[</span><span class="s">'HTML'</span><span class="p">,</span> <span class="s">'CSS'</span><span class="p">,</span> <span class="s">'JavaScript'</span><span class="p">,</span> <span class="s">'PHP'</span><span class="p">]</span><span class="p">,</span>
   learning<span class="p">:</span> <span class="p">[</span><span class="s">'C#'</span><span class="p">,</span> <span class="s">'Unity'</span><span class="p">,</span> <span class="s">'Node.js'</span><span class="p">]</span><span class="p">,</span>
@@ -82,8 +82,8 @@ require_once __DIR__ . '/../../src/i18n.php';
     tooling<span class="p">:</span> <span class="p">[</span><span class="s">'Git'</span><span class="p">,</span> <span class="s">'npm'</span><span class="p">,</span> <span class="s">'Vite'</span><span class="p">]</span>
   <span class="p">}</span><span class="p">,</span>
   now<span class="p">:</span> <span class="p">{</span>
-    studying<span class="p">:</span> <span class="s">'GLR — Software Development'</span><span class="p">,</span>
-    available<span class="p">:</span> <span class="p">[</span><span class="s">'stage'</span><span class="p">,</span> <span class="s">'freelance'</span><span class="p">]</span>
+    studying<span class="p">:</span> <span class="s">'GLR — Software Development (afgerond)'</span><span class="p">,</span>
+    available<span class="p">:</span> <span class="p">[</span><span class="s">'baan'</span><span class="p">,</span> <span class="s">'freelance'</span><span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span><span class="p">;</span>
 
@@ -126,10 +126,11 @@ require_once __DIR__ . '/../../src/i18n.php';
                 <li class="chip">HTML</li>
                 <li class="chip">CSS</li>
                 <li class="chip">JavaScript</li>
+                <li class="chip">TypeScript</li>
                 <li class="chip">PHP</li>
-                <li class="chip">Node.js</li>
-                <li class="chip"><?= t('about.csharp_basic') ?></li>
-                <li class="chip"><?= t('about.unity_basic') ?></li>
+                <li class="chip">C#</li>
+                <li class="chip">Blazor</li>
+                <li class="chip">SQL Server</li>
             </ul>
 
             <div class="about-actions">

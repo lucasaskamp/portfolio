@@ -108,8 +108,10 @@ require_once __DIR__ . '/../src/i18n.php';
           <li class="chip">HTML</li>
           <li class="chip">CSS</li>
           <li class="chip">JavaScript</li>
+          <li class="chip">JSON</li>
           <li class="chip">PHP</li>
-          <li class="chip"><?= t('home.skills.csharp_basic') ?></li>
+          <li class="chip">C#</li>
+          <li class="chip">TypeScript</li>
           <li class="chip"><?= t('home.skills.database') ?></li>
         </ul>
       </article>
@@ -117,7 +119,9 @@ require_once __DIR__ . '/../src/i18n.php';
         <h3><?= t('home.skills.tools.title') ?></h3>
         <ul class="chip-list">
           <li class="chip">PHPStorm</li>
+          <li class="chip">GitHub</li>
           <li class="chip">phpMyAdmin</li>
+          <li class="chip">Visual Studio Code</li>
           <li class="chip">Adobe Creative Cloud</li>
           <li class="chip">Unity</li>
           <li class="chip">Unreal Engine</li>
@@ -129,6 +133,11 @@ require_once __DIR__ . '/../src/i18n.php';
   <!-- Ervaring -->
   <section class="section">
     <div class="container grid two">
+      <article class="card">
+        <h3><?= t('home.exp.bm.title') ?></h3>
+        <p class="muted"><?= t('home.exp.bm.period') ?></p>
+        <p><?= t('home.exp.bm.body') ?></p>
+      </article>
       <article class="card">
         <h3><?= t('home.exp.mcd.title') ?></h3>
         <p class="muted"><?= t('home.exp.mcd.period') ?></p>
@@ -154,6 +163,7 @@ require_once __DIR__ . '/../src/i18n.php';
         <ul class="chip-list">
           <li class="chip"><?= t('home.langs.dutch') ?></li>
           <li class="chip"><?= t('home.langs.english') ?></li>
+          <li class="chip"><?= t('home.langs.german') ?></li>
         </ul>
       </article>
     </div>
