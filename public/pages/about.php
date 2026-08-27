@@ -68,12 +68,12 @@ require_once __DIR__ . '/../../src/i18n.php';
   role<span class="p">:</span> <span class="s">'Junior Full-Stack Developer'</span><span class="p">,</span>
   location<span class="p">:</span> <span class="s">'Rozenburg (Rotterdam), NL'</span><span class="p">,</span>
   stack<span class="p">:</span> <span class="p">[</span><span class="s">'HTML'</span><span class="p">,</span> <span class="s">'CSS'</span><span class="p">,</span> <span class="s">'JavaScript'</span><span class="p">,</span> <span class="s">'PHP'</span><span class="p">]</span><span class="p">,</span>
-  learning<span class="p">:</span> <span class="p">[</span><span class="s">'C#'</span><span class="p">,</span> <span class="s">'Unity'</span><span class="p">,</span> <span class="s">'Node.js'</span><span class="p">]</span><span class="p">,</span>
+  learning<span class="p">:</span> <span class="p">[</span><span class="s">'C#'</span><span class="p">,</span> <span class="s">'Unity'</span><span class="p">,</span> <span class="s">'Python'</span><span class="p">]</span><span class="p">,</span>
   focus<span class="p">:</span> <span class="s">'snelle, toegankelijke, onderhoudbare sites'</span><span class="p">,</span>
   values<span class="p">:</span> <span class="p">[</span><span class="s">'simpel'</span><span class="p">,</span> <span class="s">'duidelijk'</span><span class="p">,</span> <span class="s">'netjes'</span><span class="p">,</span> <span class="s">'snel'</span><span class="p">]</span><span class="p">,</span>
   contact<span class="p">:</span> <span class="p">{</span>
     email<span class="p">:</span> <span class="s">'contact@lucasaskamp.nl'</span><span class="p">,</span>
-    github<span class="p">:</span> <span class="s">'github.com/100536'</span><span class="p">,</span>
+    github<span class="p">:</span> <span class="s">'github.com/lucasaskamp'</span><span class="p">,</span>
     linkedin<span class="p">:</span> <span class="s">'linkedin.com/in/lucas-askamp-87031a2b7'</span>
   <span class="p">}</span><span class="p">,</span>
   toolbox<span class="p">:</span> <span class="p">{</span>
