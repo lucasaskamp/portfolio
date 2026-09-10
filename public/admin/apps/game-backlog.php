@@ -4,13 +4,19 @@ declare(strict_types=1);
 // Login verplicht (één map dieper dan de andere adminpagina's)
 require_once __DIR__ . '/../../../src/guard.php';
 require_once __DIR__ . '/../../../src/bootstrap.php';
+require_once __DIR__ . '/../../../src/csrf.php';
 require_once __DIR__ . '/game-helpers.inc.php';
 
+$token       = csrf_token();
 $currentUser = $_SESSION['username'] ?? 'Gebruiker';
 
-// Melding na een actie uit game-store.php
+// Melding na een actie uit game-store.php / game-delete.php
 $noticeTexts = [
-    'ok:create' => ['ok', 'Game toegevoegd.'],
+    'ok:create'    => ['ok',   'Game toegevoegd.'],
+    'ok:delete'    => ['ok',   'Game verwijderd.'],
+    'err:notfound' => ['warn', 'Die game bestaat niet (meer).'],
+    'err:badid'    => ['warn', 'Ongeldig game-ID.'],
+    'err:delete'   => ['warn', 'Verwijderen is niet gelukt.'],
 ];
 $okKey  = is_string($_GET['ok']  ?? null) ? $_GET['ok']  : '';
 $errKey = is_string($_GET['err'] ?? null) ? $_GET['err'] : '';
@@ -138,6 +144,14 @@ function game_hours(?string $hours): string {
                             <?php if ($g['notes']): ?>
                                 <p style="margin:10px 0 0"><?= e(mb_strimwidth((string)$g['notes'], 0, 120, '…')) ?></p>
                             <?php endif; ?>
+
+                            <div class="actions" style="margin-top:14px">
+                                <form action="./game-delete.php" method="post" onsubmit="return confirm('Deze game definitief verwijderen?');">
+                                    <input type="hidden" name="csrf" value="<?= e($token) ?>">
+                                    <input type="hidden" name="id" value="<?= (int)$g['id'] ?>">
+                                    <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
+                                </form>
+                            </div>
                         </div>
                     </article>
                 <?php endforeach; ?>
