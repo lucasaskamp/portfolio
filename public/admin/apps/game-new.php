@@ -94,7 +94,7 @@ $notice = $errTexts[$errKey] ?? null;
             </div>
         <?php endif; ?>
 
-        <form action="./game-store.php" method="post" class="card" style="max-width:900px">
+        <form action="./game-store.php" method="post" class="card">
             <input type="hidden" name="csrf" value="<?= e($token) ?>">
             <div class="form">
                 <?php $data = []; include __DIR__ . '/game-form.inc.php'; ?>
@@ -109,5 +109,6 @@ $notice = $errTexts[$errKey] ?? null;
 </main>
 
 <script src="../../assets/js/admin.js"></script>
+<script src="../../assets/js/game-form.js?v=<?= filemtime(__DIR__ . '/../../assets/js/game-form.js') ?>"></script>
 </body>
 </html>

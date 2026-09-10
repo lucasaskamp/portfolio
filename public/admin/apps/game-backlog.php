@@ -126,7 +126,7 @@ function game_hours(?string $hours): string {
                                 <div style="color:var(--warn); margin-top:6px" title="<?= e(str_replace('.', ',', (string)$g['rating'])) ?> van 5"><?= game_stars((string)$g['rating']) ?></div>
                             <?php endif; ?>
 
-                            <?php if ($g['progress'] !== null): ?>
+                            <?php if ($g['progress'] !== null && (int)$g['progress'] > 0): ?>
                                 <div class="meter" style="margin-top:10px"><div class="meter__bar" style="width:<?= (int)$g['progress'] ?>%"></div></div>
                                 <div class="card__meta" style="margin-top:4px"><?= (int)$g['progress'] ?>%</div>
                             <?php endif; ?>

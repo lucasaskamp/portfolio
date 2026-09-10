@@ -589,3 +589,30 @@ body {
 .card__meta { color: var(--muted); font-size: .9rem; }
 .meter { height: 6px; border-radius: 999px; background: #0b152b; border: 1px solid var(--border); overflow: hidden; }
 .meter__bar { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue-700)); }
+
+/* Formulier: sterren met halve stappen */
+.stars { display: flex; align-items: center; gap: 2px; }
+.stars__star { position: relative; font-size: 1.7rem; line-height: 1; color: #33415c; user-select: none; }
+.stars__fill { position: absolute; left: 0; top: 0; width: 0; overflow: hidden; color: var(--warn); pointer-events: none; white-space: nowrap; }
+.stars__hit { position: absolute; top: 0; bottom: 0; width: 50%; background: none; border: 0; padding: 0; cursor: pointer; }
+.stars__hit--left { left: 0; }
+.stars__hit--right { right: 0; }
+.stars__hit:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.stars__label { margin: 0 8px 0 10px; min-width: 3.2rem; }
+
+/* Formulier: platform-knoppen */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip {
+  padding: 6px 12px; border-radius: 999px; font-size: .9rem; cursor: pointer;
+  background: #0b152b; color: #d5deea; border: 1px solid var(--border);
+  transition: background .15s, border-color .15s, color .15s;
+}
+.chip:hover { border-color: rgba(37,99,235,.5); background: rgba(37,99,235,.12); }
+.chip.is-active { background: linear-gradient(180deg, rgba(37,99,235,.35), rgba(37,99,235,.15)); border-color: rgba(37,99,235,.6); color: #dce8ff; }
+.chips__other { flex: 0 1 160px; }
+.form__row .chips__other { width: auto; padding: 6px 12px; border-radius: 999px; font-size: .9rem; }
+
+/* Formulier: slider en datumknoppen */
+.form__row input[type="range"] { padding: 0; border: 0; background: transparent; accent-color: var(--blue); }
+.date-row { display: flex; gap: 8px; align-items: center; }
+.date-row input { flex: 1; }

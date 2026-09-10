@@ -15,6 +15,9 @@ const GAME_STATUSES = [
     'dropped'   => 'Dropped',
 ];
 
+/** Platform-knoppen in het formulier. Iets anders? Dan het veld "Anders…". */
+const GAME_PLATFORMS = ['PC', 'Steam Deck', 'Switch', 'Switch 2', 'PS5', 'PS4', 'Xbox', 'Mobile'];
+
 /** 3.5 → ★★★½☆ ; leeg → '' */
 function game_stars(?string $rating): string
 {
