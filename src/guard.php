@@ -7,7 +7,11 @@ require_once __DIR__ . '/session.php';
 // Zoveel seconden niets doen = sessie verlopen (30 minuten).
 const SESSION_IDLE_SECONDS = 1800;
 
-$base = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/');
+// Public-root bepalen (bv. "" of "/public"). Alle beveiligde pagina's staan
+// onder /admin/, dus alles vóór dat stuk is de root — op elke mapdiepte.
+$script = str_replace('\\', '/', (string)$_SERVER['SCRIPT_NAME']);
+$pos    = strpos($script, '/admin/');
+$base   = $pos !== false ? substr($script, 0, $pos) : rtrim(dirname(dirname($script)), '/');
 
 // 1) Niet ingelogd → naar de loginpagina.
 if (empty($_SESSION['user_id'])) {
