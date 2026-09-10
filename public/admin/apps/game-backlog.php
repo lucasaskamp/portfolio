@@ -1,13 +1,34 @@
 <?php
 declare(strict_types=1);
 
-// Login verplicht (let op: één map dieper dan de andere adminpagina's)
+// Login verplicht (één map dieper dan de andere adminpagina's)
 require_once __DIR__ . '/../../../src/guard.php';
-
-// DB + helpers (e())
 require_once __DIR__ . '/../../../src/bootstrap.php';
+require_once __DIR__ . '/game-helpers.inc.php';
 
 $currentUser = $_SESSION['username'] ?? 'Gebruiker';
+
+// Melding na een actie uit game-store.php
+$noticeTexts = [
+    'ok:create' => ['ok', 'Game toegevoegd.'],
+];
+$okKey  = is_string($_GET['ok']  ?? null) ? $_GET['ok']  : '';
+$errKey = is_string($_GET['err'] ?? null) ? $_GET['err'] : '';
+$noticeKey = $okKey !== '' ? "ok:{$okKey}" : ($errKey !== '' ? "err:{$errKey}" : '');
+$notice = $noticeTexts[$noticeKey] ?? null;
+
+// Alle games, laatst gewijzigd bovenaan
+$games = $pdo->query("
+    SELECT id, title, platform, status, rating, progress, hours_played, notes
+    FROM games
+    ORDER BY updated_at DESC
+")->fetchAll(PDO::FETCH_ASSOC);
+
+/** 12.5 → "12,5", 12.0 → "12" */
+function game_hours(?string $hours): string {
+    if ($hours === null || $hours === '') return '';
+    return str_replace('.', ',', (string)round((float)$hours, 1));
+}
 ?>
 <!doctype html>
 <html lang="nl">
@@ -73,14 +94,55 @@ $currentUser = $_SESSION['username'] ?? 'Gebruiker';
     <section class="section">
         <h2>Game Backlog</h2>
 
-        <div class="card">
-            <div class="card__body">
-                <p style="margin:0 0 16px">Deze app wordt hier gebouwd.</p>
-                <div class="actions">
-                    <a class="btn btn-ghost" href="../apps.php">Terug naar Apps</a>
-                </div>
+        <?php if ($notice): ?>
+            <div class="card" style="padding:12px 16px; margin-bottom:16px">
+                <span class="badge badge--<?= e($notice[0]) ?>"><?= e($notice[1]) ?></span>
             </div>
+        <?php endif; ?>
+
+        <div class="actions" style="margin-bottom:16px">
+            <a class="btn btn-primary" href="./game-new.php">Game toevoegen</a>
+            <a class="btn btn-ghost" href="../apps.php">Terug naar Apps</a>
         </div>
+
+        <?php if (!$games): ?>
+            <div class="card">
+                <div class="card__body card__meta">Nog geen games. Voeg je eerste game toe.</div>
+            </div>
+        <?php else: ?>
+            <div class="grid cards">
+                <?php foreach ($games as $g): ?>
+                    <article class="card">
+                        <header class="card__header" style="display:flex; justify-content:space-between; align-items:center; gap:10px">
+                            <h3 style="margin:0; font-size:1rem"><?= e($g['title']) ?></h3>
+                            <span class="<?= game_pill_class((string)$g['status']) ?>"><?= e(GAME_STATUSES[$g['status']] ?? $g['status']) ?></span>
+                        </header>
+                        <div class="card__body">
+                            <?php if ($g['platform']): ?>
+                                <div class="card__meta"><?= e($g['platform']) ?></div>
+                            <?php endif; ?>
+
+                            <?php if ($g['rating'] !== null): ?>
+                                <div style="color:var(--warn); margin-top:6px" title="<?= e(str_replace('.', ',', (string)$g['rating'])) ?> van 5"><?= game_stars((string)$g['rating']) ?></div>
+                            <?php endif; ?>
+
+                            <?php if ($g['progress'] !== null): ?>
+                                <div class="meter" style="margin-top:10px"><div class="meter__bar" style="width:<?= (int)$g['progress'] ?>%"></div></div>
+                                <div class="card__meta" style="margin-top:4px"><?= (int)$g['progress'] ?>%</div>
+                            <?php endif; ?>
+
+                            <?php if ($g['hours_played'] !== null): ?>
+                                <div class="card__meta" style="margin-top:6px"><?= e(game_hours((string)$g['hours_played'])) ?> uur</div>
+                            <?php endif; ?>
+
+                            <?php if ($g['notes']): ?>
+                                <p style="margin:10px 0 0"><?= e(mb_strimwidth((string)$g['notes'], 0, 120, '…')) ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </section>
 </main>
 

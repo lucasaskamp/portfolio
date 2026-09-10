@@ -233,12 +233,13 @@ body {
 .form { padding: 16px; }
 .form__row { display: grid; gap: 8px; margin-bottom: 14px; }
 .form__row label { color:#c6d6f6; font-size: .9rem; }
-.form__row input, .form__row select {
+.form__row input, .form__row select, .form__row textarea {
   width: 100%; padding: 10px 12px; border-radius: 10px;
   background: #0b152b; color: var(--text);
   border: 1px solid var(--border); outline: none;
+  font: inherit;
 }
-.form__row input:focus, .form__row select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--ring); }
+.form__row input:focus, .form__row select:focus, .form__row textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--ring); }
 .switch { display: inline-flex; align-items: center; gap: 10px; }
 .form__actions { display: flex; gap: 10px; }
 
@@ -582,3 +583,9 @@ body {
     border-color: rgba(37,99,235,.35);
 }
 .metric--info .metric-chip__dot { background:#2563eb; }
+
+/* ====== Game Backlog ====== */
+.grid.cards { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.card__meta { color: var(--muted); font-size: .9rem; }
+.meter { height: 6px; border-radius: 999px; background: #0b152b; border: 1px solid var(--border); overflow: hidden; }
+.meter__bar { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue-700)); }
