@@ -37,6 +37,21 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Melding na een actie uit project-toggle.php / project-delete.php
+$noticeTexts = [
+    'ok:toggle'    => ['ok',   'Projectstatus bijgewerkt.'],
+    'ok:deleted'   => ['ok',   'Project verwijderd.'],
+    'err:notfound' => ['warn', 'Dat project bestaat niet (meer).'],
+    'err:badid'    => ['warn', 'Ongeldig project-ID.'],
+    'err:toggle'   => ['warn', 'Status bijwerken is niet gelukt.'],
+    'err:delete'   => ['warn', 'Verwijderen is niet gelukt.'],
+];
+$okKey  = is_string($_GET['ok']  ?? null) ? $_GET['ok']  : '';
+$errKey = is_string($_GET['err'] ?? null) ? $_GET['err'] : '';
+if ($okKey === '' && isset($_GET['deleted'])) { $okKey = 'deleted'; } // parameter van project-delete.php
+$noticeKey = $okKey !== '' ? "ok:{$okKey}" : ($errKey !== '' ? "err:{$errKey}" : '');
+$notice = $noticeTexts[$noticeKey] ?? null;
+
 // Kleine helper
 function pill(string $status): string {
     $class = $status === 'live' ? 'pill pill--ok' : 'pill pill--warn';
@@ -75,6 +90,10 @@ function pill(string $status): string {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 8v10a2 2 0 0 1-2 2H5l-4 4V6a2 2 0 0 1 2-2h12"/></svg>
             <span>Contact</span>
         </a>
+        <a href="./apps.php" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            <span>Apps</span>
+        </a>
         <a href="../auth/logout.php" class="nav-link nav-link--danger">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 17l1.41-1.41L8.83 13H21v-2H8.83l2.58-2.59L10 7l-5 5 5 5zM4 19h6v2H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h6v2H4v14z"/></svg>
             <span>Uitloggen</span>
@@ -97,6 +116,12 @@ function pill(string $status): string {
 <!-- Inhoud -->
 <main class="main">
     <section class="section">
+        <?php if ($notice): ?>
+            <div class="card" style="padding:12px 16px; margin-bottom:16px">
+                <span class="badge badge--<?= e($notice[0]) ?>"><?= e($notice[1]) ?></span>
+            </div>
+        <?php endif; ?>
+
         <div class="card">
             <div class="table-toolbar projects-toolbar">
                 <form method="get" class="filter-bar" role="search">

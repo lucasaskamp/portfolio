@@ -6,27 +6,43 @@ require_once __DIR__ . '/../../src/bootstrap.php';
 require_once __DIR__ . '/../../src/csrf.php';
 require_once __DIR__ . '/../../src/activity.php';
 
+/** Terug naar de projectlijst: filters blijven staan, een oude melding niet. */
+function back_to_list(string $key, string $value): never {
+    $ref   = $_SERVER['HTTP_REFERER'] ?? './admin.php';
+    $parts = explode('?', $ref, 2);
+    parse_str($parts[1] ?? '', $params);
+    unset($params['ok'], $params['err'], $params['deleted']);
+    $params[$key] = $value;
+
+    header('Location: ' . $parts[0] . '?' . http_build_query($params));
+    exit;
+}
+
 try {
     csrf_require($_POST['csrf'] ?? '');
 
     $id = (int)($_POST['id'] ?? 0);
-    $to = (string)($_POST['to'] ?? 'open');
-    $allowed = ['open','read','archived'];
-    if (!in_array($to, $allowed, true)) $to = 'open';
-    if ($id <= 0) { http_response_code(400); exit('bad id'); }
+    $to = (string)($_POST['to'] ?? 'concept');
+    $allowed = ['concept', 'live'];
+    if (!in_array($to, $allowed, true)) $to = 'concept';
+    if ($id <= 0) back_to_list('err', 'badid');
 
-    $cur = $pdo->prepare("SELECT status FROM contact_messages WHERE id=:id");
-    $cur->execute([':id'=>$id]);
-    $from = $cur->fetchColumn();
-    if ($from === false) { http_response_code(404); exit('not found'); }
+    $cur = $pdo->prepare("SELECT title, status FROM projects WHERE id=:id LIMIT 1");
+    $cur->execute([':id' => $id]);
+    $row = $cur->fetch(PDO::FETCH_ASSOC);
+    if (!$row) back_to_list('err', 'notfound');
 
-    $upd = $pdo->prepare("UPDATE contact_messages SET status=:to WHERE id=:id");
-    $upd->execute([':to'=>$to, ':id'=>$id]);
+    $upd = $pdo->prepare("UPDATE projects SET status=:to WHERE id=:id LIMIT 1");
+    $upd->execute([':to' => $to, ':id' => $id]);
 
-    log_event($pdo, $_SESSION['user_id']??null, $_SESSION['username']??null, 'toggle', 'contact', $id, ['from'=>(string)$from,'to'=>$to]);
+    log_event($pdo, $_SESSION['user_id'] ?? null, $_SESSION['username'] ?? null, 'toggle', 'project', $id, [
+        'title' => (string)$row['title'],
+        'from'  => (string)$row['status'],
+        'to'    => $to,
+    ]);
 
-    header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? './contacts.php'));
+    back_to_list('ok', 'toggle');
 } catch (Throwable $e) {
-    error_log('contact-toggle failed: '.$e->getMessage());
-    header('Location: ./contacts.php?err=toggle');
+    error_log('project-toggle failed: ' . $e->getMessage());
+    back_to_list('err', 'toggle');
 }

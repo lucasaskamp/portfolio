@@ -148,6 +148,7 @@ return [
     'contact.err.csrf'          => 'Security error. Please try again.',
     'contact.err.rate'          => 'You recently sent a message. Please try again later.',
     'contact.err.input'         => 'Please check your input.',
+    'contact.err.server'        => 'Something went wrong on our end. Please try again later.',
 
     // ── Login (login.php) ──────────────────────────────────
     'meta.title.login' => 'Login — Lucas Askamp',
@@ -159,6 +160,7 @@ return [
     'login.submit'        => 'Log in',
     'login.clear'         => 'Clear',
     'login.error'         => 'Incorrect login details.',
+    'login.timeout'       => 'You were logged out automatically after 30 minutes of inactivity.',
 
     // ── Privacy statement (privacy.php) ────────────────────
     'meta.title.privacy' => 'Privacy statement — Lucas Askamp',

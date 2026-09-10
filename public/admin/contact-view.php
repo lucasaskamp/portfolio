@@ -10,12 +10,12 @@ function e($s){ return htmlspecialchars((string)$s,ENT_QUOTES); }
 
 $token = csrf_token();
 $id = (int)($_GET['id'] ?? 0);
-if ($id <= 0) { http_response_code(400); exit('Bad id'); }
+if ($id <= 0) { header('Location: ./contacts.php?err=badid'); exit; }
 
 $st = $pdo->prepare("SELECT id,name,email,subject,message,status,created_at,ip,user_agent FROM contact_messages WHERE id=:id");
 $st->execute([':id'=>$id]);
 $row = $st->fetch(PDO::FETCH_ASSOC);
-if (!$row) { http_response_code(404); exit('Not found'); }
+if (!$row) { header('Location: ./contacts.php?err=notfound'); exit; }
 
 try { log_event($pdo, $_SESSION['user_id']??null, $_SESSION['username']??null, 'view', 'contact', $id, []); } catch(Throwable $e){}
 
@@ -40,6 +40,7 @@ $currentUser = $_SESSION['username'] ?? 'Gebruiker';
         <a href="./dashboard.php#dashboard" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg><span>Dashboard</span></a>
         <a href="./admin.php" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg><span>Projecten</span></a>
         <a href="./contacts.php" class="nav-link is-active"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 8v10a2 2 0 0 1-2 2H5l-4 4V6a2 2 0 0 1 2-2h12"/></svg><span>Contact</span></a>
+        <a href="./apps.php" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg><span>Apps</span></a>
         <a href="../auth/logout.php" class="nav-link nav-link--danger"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 17l1.41-1.41L8.83 13H21v-2H8.83l2.58-2.59L10 7l-5 5 5 5zM4 19h6v2H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h6v2H4v14z"/></svg><span>Uitloggen</span></a>
     </nav>
     <div class="sidebar__footer"><small>© Lucas Askamp</small></div>

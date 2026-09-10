@@ -4,14 +4,39 @@ declare(strict_types=1);
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
+require_once __DIR__ . '/../../src/session.php';       // sessie: nodig voor CSRF én foutmeldingen
+require_once __DIR__ . '/../../src/csrf.php';
 require_once __DIR__ . '/../../src/bootstrap.php';     // $pdo
 require_once __DIR__ . '/../../src/activity.php';   // log_event()
 
-function redirect(string $to): void { header('Location: '.$to); exit; }
+// Spamdrempels
+const CONTACT_MIN_FILL_SECONDS = 3;   // sneller ingevuld dan dit is geen mens
+const CONTACT_MAX_PER_MINUTE   = 1;
+const CONTACT_MAX_PER_HOUR     = 5;
 
-$backOk  = '../pages/contact.php?sent=1';
-$backBad = '../pages/contact.php?err=input';
-$backSrv = '../pages/contact.php?err=server';
+function redirect(string $to): never { header('Location: '.$to); exit; }
+
+/** Terug naar het formulier met een melding die contact.php al kan tonen. */
+function fail(string $errKey, string $field = 'global'): never {
+    $_SESSION['contact_err']       = $errKey;
+    $_SESSION['contact_err_field'] = $field;
+    $_SESSION['contact_old']       = [
+        'name'    => (string)($_POST['name'] ?? ''),
+        'email'   => (string)($_POST['email'] ?? ''),
+        'subject' => (string)($_POST['subject'] ?? ''),
+        'message' => (string)($_POST['message'] ?? ''),
+    ];
+    redirect('../pages/contact.php');
+}
+
+/**
+ * Naar de bedanktpagina. Gebruikt na een echte verzending én bij een betrapte
+ * bot: die mag niet leren dat hij tegengehouden is.
+ */
+function finish_ok(): never {
+    unset($_SESSION['contact_err'], $_SESSION['contact_err_field'], $_SESSION['contact_old']);
+    redirect('../pages/contact.php?sent=1');
+}
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -19,9 +44,49 @@ try {
         exit;
     }
 
-    // Honeypot
+    // 1) Honeypot: dit veld is onzichtbaar, alleen bots vullen het in.
     if (!empty($_POST['website'] ?? '')) {
-        redirect($backOk);
+        finish_ok();
+    }
+
+    // 2) CSRF: bewijst dat de inzending van ons eigen formulier komt en niet
+    //    van een bot die rechtstreeks op dit endpoint post.
+    if (!csrf_verify((string)($_POST['csrf'] ?? ''))) {
+        fail('csrf');
+    }
+
+    // 3) Tijdslot: een mens doet er langer over dan een paar seconden.
+    //    Ontbreekt 'ts' (oud formulier uit de cache), dan slaan we dit over.
+    $ts = (int)($_POST['ts'] ?? 0);
+    if ($ts > 0 && (time() - $ts) < CONTACT_MIN_FILL_SECONDS) {
+        finish_ok();
+    }
+
+    // Client info
+    $ua = substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255);
+    $ipRaw = null;
+    if (!empty($_SERVER['REMOTE_ADDR'])) {
+        $packed = @inet_pton($_SERVER['REMOTE_ADDR']);
+        if ($packed !== false) $ipRaw = $packed; // binair voor VARBINARY(16)
+    }
+
+    // 4) Rate limit op IP: stopt herhaalde inzendingen vanaf hetzelfde adres.
+    if ($ipRaw !== null) {
+        $rate = $pdo->prepare("
+            SELECT
+              SUM(created_at >= (NOW() - INTERVAL 1 MINUTE)) AS per_minute,
+              COUNT(*)                                       AS per_hour
+            FROM contact_messages
+            WHERE ip = :ip AND created_at >= (NOW() - INTERVAL 1 HOUR)
+        ");
+        $rate->bindValue(':ip', $ipRaw, PDO::PARAM_LOB);
+        $rate->execute();
+        $counts = $rate->fetch(PDO::FETCH_ASSOC) ?: [];
+
+        if ((int)($counts['per_minute'] ?? 0) >= CONTACT_MAX_PER_MINUTE
+            || (int)($counts['per_hour'] ?? 0) >= CONTACT_MAX_PER_HOUR) {
+            fail('rate');
+        }
     }
 
     // Input
@@ -31,20 +96,13 @@ try {
     $message = trim((string)($_POST['message'] ?? ''));
     $lang    = (($_POST['lang'] ?? '') === 'nl') ? 'nl' : 'en'; // taal van de bezoeker (fallback en)
 
-    // Validatie volgens jouw kolomnamen/lengtes
-    if ($name === '' || mb_strlen($name) > 120)        redirect($backBad);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL))     redirect($backBad);
-    if (mb_strlen($email) > 190)                        redirect($backBad);
-    if ($subject === '' || mb_strlen($subject) > 150)   redirect($backBad);
-    if ($message === '' || mb_strlen($message) > 5000)  redirect($backBad);
-
-    // Client info
-    $ua = substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255);
-    $ipRaw = null;
-    if (!empty($_SERVER['REMOTE_ADDR'])) {
-        $packed = @inet_pton($_SERVER['REMOTE_ADDR']);
-        if ($packed !== false) $ipRaw = $packed; // binair voor VARBINARY(16)
-    }
+    // Validatie volgens jouw kolomnamen/lengtes; de minima horen bij de teksten
+    // in contact.err.* ("minimaal 2 tekens", "minimaal 10 tekens").
+    if (mb_strlen($name) < 2 || mb_strlen($name) > 120)          fail('input_name', 'name');
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)
+        || mb_strlen($email) > 190)                              fail('input_email', 'email');
+    if (mb_strlen($subject) < 2 || mb_strlen($subject) > 150)    fail('input_subject', 'subject');
+    if (mb_strlen($message) < 10 || mb_strlen($message) > 5000)  fail('input_message', 'message');
 
     // INSERT (let op: géén updated_at)
     $sql = "INSERT INTO contact_messages
@@ -137,9 +195,9 @@ try {
         @mail($email, $replySubject, $replyBody, $replyHdrs);
     }
 
-    redirect($backOk);
+    finish_ok();
 
 } catch (Throwable $e) {
     error_log('send_mail.php error: '.$e->getMessage());
-    redirect($backSrv);
+    fail('server');
 }

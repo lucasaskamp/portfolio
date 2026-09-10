@@ -13,7 +13,7 @@ $errFld  = $_SESSION['contact_err_field'] ?? '';
 unset($_SESSION['contact_old'], $_SESSION['contact_err'], $_SESSION['contact_err_field']);
 
 function field_error(string $name, string $errFld, string $errKey): ?string {
-    $allowed = ['input_name','input_email','input_subject','input_message','csrf','rate','input'];
+    $allowed = ['input_name','input_email','input_subject','input_message','csrf','rate','input','server'];
     if (!in_array($errKey, $allowed, true)) return null;
     if ($errFld === $name) return t('contact.err.' . $errKey);
     if ($name === 'global' && $errKey !== '') return t('contact.err.' . $errKey);
@@ -82,6 +82,7 @@ function field_error(string $name, string $errFld, string $errKey): ?string {
                 <form action="../api/send_mail.php" method="post" class="contact-form" novalidate>
                     <input type="hidden" name="csrf" value="<?= e($token) ?>">
                     <input type="hidden" name="lang" value="<?= e(lang_current()) ?>">
+                    <input type="hidden" name="ts" value="<?= time() ?>">
 
                     <!-- Globale foutmelding -->
                     <?php if (!$ok && ($g = field_error('global', $errFld, $errKey))): ?>

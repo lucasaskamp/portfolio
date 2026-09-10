@@ -148,6 +148,7 @@ return [
     'contact.err.csrf'          => 'Beveiligingsfout. Probeer opnieuw.',
     'contact.err.rate'          => 'Je hebt kort geleden al een bericht gestuurd. Probeer later nog eens.',
     'contact.err.input'         => 'Controleer je invoer.',
+    'contact.err.server'        => 'Er ging iets mis aan onze kant. Probeer het later nog eens.',
 
     // ── Login (login.php) ──────────────────────────────────
     'meta.title.login' => 'Login — Lucas Askamp',
@@ -159,6 +160,7 @@ return [
     'login.submit'        => 'Inloggen',
     'login.clear'         => 'Leegmaken',
     'login.error'         => 'Onjuiste inloggegevens.',
+    'login.timeout'       => 'Je bent automatisch uitgelogd na 30 minuten inactiviteit.',
 
     // ── Privacyverklaring (privacy.php) ────────────────────
     'meta.title.privacy' => 'Privacyverklaring — Lucas Askamp',

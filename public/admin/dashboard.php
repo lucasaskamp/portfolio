@@ -158,6 +158,10 @@ function status_pill(string $status): string {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 8v10a2 2 0 0 1-2 2H5l-4 4V6a2 2 0 0 1 2-2h12"/></svg>
             <span>Contact</span>
         </a>
+        <a href="./apps.php" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            <span>Apps</span>
+        </a>
 
         <!-- Snelle links -->
         <a href="./admin.php" class="nav-link">

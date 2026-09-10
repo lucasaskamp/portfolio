@@ -39,6 +39,21 @@ $archCount = (int)$pdo->query("SELECT COUNT(*) FROM contact_messages WHERE statu
 
 $currentUser = $_SESSION['username'] ?? 'Gebruiker';
 function e($s){ return htmlspecialchars((string)$s,ENT_QUOTES); }
+
+// Melding na een actie uit contact-toggle.php / contact-delete.php / contact-view.php
+$noticeTexts = [
+    'ok:delete'    => ['ok',   'Bericht verwijderd.'],
+    'ok:toggle'    => ['ok',   'Status bijgewerkt.'],
+    'err:notfound' => ['warn', 'Dat bericht bestaat niet (meer).'],
+    'err:badid'    => ['warn', 'Ongeldig bericht-ID.'],
+    'err:csrf'     => ['warn', 'Beveiligingscontrole mislukt. Probeer het opnieuw.'],
+    'err:delete'   => ['warn', 'Verwijderen is niet gelukt.'],
+    'err:toggle'   => ['warn', 'Status bijwerken is niet gelukt.'],
+];
+$okKey  = is_string($_GET['ok']  ?? null) ? $_GET['ok']  : '';
+$errKey = is_string($_GET['err'] ?? null) ? $_GET['err'] : '';
+$noticeKey = $okKey !== '' ? "ok:{$okKey}" : ($errKey !== '' ? "err:{$errKey}" : '');
+$notice = $noticeTexts[$noticeKey] ?? null;
 ?>
 <!doctype html>
 <html lang="nl">
@@ -56,6 +71,7 @@ function e($s){ return htmlspecialchars((string)$s,ENT_QUOTES); }
         <a href="./dashboard.php#dashboard" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg><span>Dashboard</span></a>
         <a href="./admin.php" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg><span>Projecten</span></a>
         <a href="./contacts.php" class="nav-link is-active"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 8v10a2 2 0 0 1-2 2H5l-4 4V6a2 2 0 0 1 2-2h12"/></svg><span>Contact</span></a>
+        <a href="./apps.php" class="nav-link"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg><span>Apps</span></a>
         <a href="../auth/logout.php" class="nav-link nav-link--danger"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 17l1.41-1.41L8.83 13H21v-2H8.83l2.58-2.59L10 7l-5 5 5 5zM4 19h6v2H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h6v2H4v14z"/></svg><span>Uitloggen</span></a>
     </nav>
     <div class="sidebar__footer"><small>© Lucas Askamp</small></div>
@@ -70,6 +86,12 @@ function e($s){ return htmlspecialchars((string)$s,ENT_QUOTES); }
 <main class="main">
     <section class="section">
         <h2>Contact</h2>
+
+        <?php if ($notice): ?>
+            <div class="card" style="padding:12px 16px; margin-bottom:16px">
+                <span class="badge badge--<?= e($notice[0]) ?>"><?= e($notice[1]) ?></span>
+            </div>
+        <?php endif; ?>
 
         <div class="card" style="padding:16px">
             <div class="actions" style="justify-content:space-between; gap:12px; flex-wrap:wrap">

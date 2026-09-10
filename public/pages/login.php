@@ -7,8 +7,12 @@ $token = csrf_token();
 
 /** Eventuele fout via querystring (bv. ?err=1 of ?err=bad) */
 $errKey = $_GET['err'] ?? ($_GET['error'] ?? '');
+$isTimeout = ($errKey === 'timeout');
 $errMsg = '';
-if ($errKey) {
+if ($isTimeout) {
+    // Geen fout van de gebruiker: sessie is verlopen door inactiviteit
+    $errMsg = t('login.timeout');
+} elseif ($errKey) {
     // Toon 1 generieke boodschap; backend logt details
     $errMsg = t('login.error');
 }
@@ -71,9 +75,9 @@ if ($errKey) {
 
             <!-- JE BESTAANDE CARD (functionaliteit ongewijzigd) -->
             <article
-                    class="card auth-card<?= $errMsg ? ' is-shake' : '' ?>"
+                    class="card auth-card<?= $errMsg && !$isTimeout ? ' is-shake' : '' ?>"
                     id="authCard"
-                    <?= $errMsg ? 'data-error="1"' : '' ?>
+                    <?= $errMsg && !$isTimeout ? 'data-error="1"' : '' ?>
             >
                 <header class="card__header">
                     <h2 class="auth-title">Portfolio Admin</h2>
@@ -101,7 +105,7 @@ if ($errKey) {
                             <button type="reset" class="btn"><?= t('login.clear') ?></button>
                         </div>
 
-                        <p id="status" class="alert <?= $errMsg ? 'alert--error' : '' ?>" role="status">
+                        <p id="status" class="alert <?= $errMsg && !$isTimeout ? 'alert--error' : '' ?>" role="status">
                             <?= $errMsg ? e($errMsg) : '' ?>
                         </p>
                     </form>

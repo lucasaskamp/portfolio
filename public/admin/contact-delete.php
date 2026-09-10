@@ -31,7 +31,11 @@ try{
     log_event($pdo, $_SESSION['user_id']??null, $_SESSION['username']??null, 'delete', 'contact', $id, []);
 
     $pdo->commit();
-    back('ok=delete');
+
+    // Niet terug naar de referer: dat is vaak contact-view.php van het zojuist
+    // verwijderde bericht, en die pagina kan niet meer bestaan.
+    header('Location: ./contacts.php?ok=delete');
+    exit;
 } catch(Throwable $e){
     if ($pdo->inTransaction()) $pdo->rollBack();
     error_log('contact-delete failed: '.$e->getMessage());
