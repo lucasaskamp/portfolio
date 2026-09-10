@@ -61,7 +61,7 @@ $notice = $noticeTexts[$noticeKey] ?? null;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact — Portfolio Admin</title>
-    <link rel="stylesheet" href="../assets/css/admin.css" />
+    <link rel="stylesheet" href="../assets/css/admin.css?v=<?= filemtime(__DIR__ . '/../assets/css/admin.css') ?>" />
 </head>
 <body>
 
